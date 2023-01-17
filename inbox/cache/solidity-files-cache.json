@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/ningo/self-training/web3/inbox/contracts/Lottery.sol": {
+      "lastModificationDate": 1671791615981,
+      "contentHash": "593a1b172c074a87d73e7af62a12b626",
+      "sourceName": "contracts/Lottery.sol",
+      "solcConfig": {
+        "version": "0.4.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.4.17"
+      ],
+      "artifacts": [
+        "Lottery"
+      ]
+    }
+  }
+}
