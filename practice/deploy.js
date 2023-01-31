@@ -18,9 +18,8 @@ const deploy = async () => {
   const currentBalance = await web3.eth.getBalance(accounts[0]);
   console.log('Address: ', accounts[0])
   console.log('Balance: ', currentBalance)
-  const result = await new web3.eth.Contract(JSON.parse(interface))
-    .deploy({ data: bytecode })
-    .send({ gas: '0.1', from: accounts[0] });
+  const result = await new web3.eth.Contract(JSON.parse(interface), { _initialAmount: 0.1 })
+    .deploy({ data: bytecode }, 0.1);
 
   console.log('Contract deployed to', result.options.address);
   provider.engine.stop();
