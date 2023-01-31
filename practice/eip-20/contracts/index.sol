@@ -56,7 +56,7 @@ contract EIP20 is EIP20Interface {
   mapping (address => mapping (address => uint256)) public allowed;
   string public name = 'EIP20-Token';   //fancy name: eg Simon Bucks
   uint8 public decimals = 3;            // How many decimals to show.
-  string public symbol = 'SBX';                 //An identifier: eg SBX
+  string public symbol = 'AST';                 //An identifier: eg SBX
 
   constructor(uint256 _initialAmount) {
     balances[msg.sender] += _initialAmount;              
