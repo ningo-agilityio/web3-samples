@@ -7,6 +7,6 @@ My notes: [link](https://docs.google.com/document/d/1UEghomOIx91aH8PLjAr9P2cpy6X
 - [ ] [State Machine](https://blog.logrocket.com/developers-guide-solidity-design-patterns/#state-machine)
 ### Practice
 - [x] Create token for EIP 20
-- [ ] Create token for EIP 721
+- [ ] Create token for EIP 721 - (IN PROGRESS)
 - [ ] Create token for EIP 1559
 - [ ] Implement a smart contract that only allows a white-label list of addresses can withdraw ETH / Token.
