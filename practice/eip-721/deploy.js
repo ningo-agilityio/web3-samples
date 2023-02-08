@@ -5,6 +5,7 @@ config();
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const Web3 = require('web3');
 const { interface, bytecode } = require('./compile');
+console.log('bytecode:', bytecode)
 const provider = new HDWalletProvider(
   process.env.OWN_PHRASE,
   // remember to change this to your own phrase!

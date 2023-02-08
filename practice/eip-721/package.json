@@ -9,11 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@truffle/hdwallet-provider": "^1.5.1",
+    "@truffle/hdwallet-provider": "^2.1.6",
     "dotenv": "^16.0.3",
     "ganache-cli": "^6.12.2",
     "mocha": "^9.1.2",
-    "solc": "^0.4.21",
+    "solc": "^0.5.16",
     "web3": "^1.6.0"
   },
   "devDependencies": {
