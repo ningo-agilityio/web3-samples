@@ -337,58 +337,57 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
     */
   constructor() public {
-      // _name = name_;
-      // _symbol = symbol_;
+    // _name = name_;
+    // _symbol = symbol_;
   }
 
   /**
     * @dev See {IERC165-supportsInterface}.
     */
   function supportsInterface(bytes4 interfaceId) public view returns (bool) {
-      return
-          _supportedInterfaces[interfaceId] ||
-          super.supportsInterface(interfaceId);
+    return _supportedInterfaces[interfaceId] ||
+        super.supportsInterface(interfaceId);
   }
 
   /**
     * @dev See {IERC721-balanceOf}.
     */
   function balanceOf(address owner) public view returns (uint256) {
-      require(owner != address(0), "ERC721: address zero is not a valid owner");
-      return _balances[owner];
+    require(owner != address(0), "ERC721: address zero is not a valid owner");
+    return _balances[owner];
   }
 
   /**
     * @dev See {IERC721-ownerOf}.
     */
   function ownerOf(uint256 tokenId) public view returns (address) {
-      address owner = _ownerOf(tokenId);
-      require(owner != address(0), "ERC721: invalid token ID");
-      return owner;
+    address owner = _ownerOf(tokenId);
+    require(owner != address(0), "ERC721: invalid token ID");
+    return owner;
   }
 
   /**
     * @dev See {IERC721Metadata-name}.
     */
   function name() public view returns (string memory) {
-      return _name;
+    return _name;
   }
 
   /**
     * @dev See {IERC721Metadata-symbol}.
     */
   function symbol() public view returns (string memory) {
-      return _symbol;
+    return _symbol;
   }
 
   /**
     * @dev See {IERC721Metadata-tokenURI}.
     */
   function tokenURI(uint256 tokenId) public view returns (string memory) {
-      _requireMinted(tokenId);
+    _requireMinted(tokenId);
 
-      string memory baseURI = _baseURI();
-      return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, Strings.toString(tokenId))) : "";
+    string memory baseURI = _baseURI();
+    return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, Strings.toString(tokenId))) : "";
   }
 
   /**
@@ -397,70 +396,70 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * by default, can be overridden in child contracts.
     */
   function _baseURI() internal view returns (string memory) {
-      return "";
+    return "";
   }
 
   /**
     * @dev See {IERC721-approve}.
     */
   function approve(address to, uint256 tokenId) public {
-      address owner = ERC721.ownerOf(tokenId);
-      require(to != owner, "ERC721: approval to current owner");
+    address owner = ERC721.ownerOf(tokenId);
+    require(to != owner, "ERC721: approval to current owner");
 
-      require(
-          msg.sender == owner || isApprovedForAll(owner, msg.sender),
-          "ERC721: approve caller is not token owner or approved for all"
-      );
+    require(
+        msg.sender == owner || isApprovedForAll(owner, msg.sender),
+        "ERC721: approve caller is not token owner or approved for all"
+    );
 
-      _approve(to, tokenId);
+    _approve(to, tokenId);
   }
 
   /**
     * @dev See {IERC721-getApproved}.
     */
   function getApproved(uint256 tokenId) public view returns (address) {
-      _requireMinted(tokenId);
+    _requireMinted(tokenId);
 
-      return _tokenApprovals[tokenId];
+    return _tokenApprovals[tokenId];
   }
 
   /**
     * @dev See {IERC721-setApprovalForAll}.
     */
   function setApprovalForAll(address operator, bool approved) public {
-      _setApprovalForAll(msg.sender, operator, approved);
+    _setApprovalForAll(msg.sender, operator, approved);
   }
 
   /**
     * @dev See {IERC721-isApprovedForAll}.
     */
   function isApprovedForAll(address owner, address operator) public view returns (bool) {
-      return _operatorApprovals[owner][operator];
+    return _operatorApprovals[owner][operator];
   }
 
   /**
     * @dev See {IERC721-transferFrom}.
     */
   function transferFrom(address from, address to, uint256 tokenId) public {
-      //solhint-disable-next-line max-line-length
-      require(_isApprovedOrOwner(msg.sender, tokenId), "ERC721: caller is not token owner or approved");
+    //solhint-disable-next-line max-line-length
+    require(_isApprovedOrOwner(msg.sender, tokenId), "ERC721: caller is not token owner or approved");
 
-      _transfer(from, to, tokenId);
+    _transfer(from, to, tokenId);
   }
 
   /**
     * @dev See {IERC721-safeTransferFrom}.
     */
   function safeTransferFrom(address from, address to, uint256 tokenId) public {
-      safeTransferFrom(from, to, tokenId, "");
+    safeTransferFrom(from, to, tokenId, "");
   }
 
   /**
     * @dev See {IERC721-safeTransferFrom}.
     */
   function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public {
-      require(_isApprovedOrOwner(msg.sender, tokenId), "ERC721: caller is not token owner or approved");
-      _safeTransfer(from, to, tokenId, data);
+    require(_isApprovedOrOwner(msg.sender, tokenId), "ERC721: caller is not token owner or approved");
+    _safeTransfer(from, to, tokenId, data);
   }
 
   /**
@@ -482,15 +481,15 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * Emits a {Transfer} event.
     */
   function _safeTransfer(address from, address to, uint256 tokenId, bytes memory data) internal {
-      _transfer(from, to, tokenId);
-      require(_checkOnERC721Received(from, to, tokenId, data), "ERC721: transfer to non ERC721Receiver implementer");
+    _transfer(from, to, tokenId);
+    require(_checkOnERC721Received(from, to, tokenId, data), "ERC721: transfer to non ERC721Receiver implementer");
   }
 
   /**
     * @dev Returns the owner of the `tokenId`. Does NOT revert if token doesn't exist
     */
   function _ownerOf(uint256 tokenId) internal view returns (address) {
-      return _owners[tokenId];
+    return _owners[tokenId];
   }
 
   /**
@@ -502,7 +501,7 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * and stop existing when they are burned (`_burn`).
     */
   function _exists(uint256 tokenId) internal view returns (bool) {
-      return _ownerOf(tokenId) != address(0);
+    return _ownerOf(tokenId) != address(0);
   }
 
   /**
@@ -513,8 +512,8 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * - `tokenId` must exist.
     */
   function _isApprovedOrOwner(address spender, uint256 tokenId) internal view returns (bool) {
-      address owner = ERC721.ownerOf(tokenId);
-      return (spender == owner || isApprovedForAll(owner, spender) || getApproved(tokenId) == spender);
+    address owner = ERC721.ownerOf(tokenId);
+    return (spender == owner || isApprovedForAll(owner, spender) || getApproved(tokenId) == spender);
   }
 
   /**
@@ -528,7 +527,7 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * Emits a {Transfer} event.
     */
   function _safeMint(address to, uint256 tokenId) internal {
-      _safeMint(to, tokenId, "");
+    _safeMint(to, tokenId, "");
   }
 
   /**
@@ -536,11 +535,11 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * forwarded in {IERC721Receiver-onERC721Received} to contract recipients.
     */
   function _safeMint(address to, uint256 tokenId, bytes memory data) internal {
-      _mint(to, tokenId);
-      require(
-          _checkOnERC721Received(address(0), to, tokenId, data),
-          "ERC721: transfer to non ERC721Receiver implementer"
-      );
+    _mint(to, tokenId);
+    require(
+        _checkOnERC721Received(address(0), to, tokenId, data),
+        "ERC721: transfer to non ERC721Receiver implementer"
+    );
   }
 
   /**
@@ -556,27 +555,27 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * Emits a {Transfer} event.
     */
   function _mint(address to, uint256 tokenId) internal {
-      require(to != address(0), "ERC721: mint to the zero address");
-      require(!_exists(tokenId), "ERC721: token already minted");
+    require(to != address(0), "ERC721: mint to the zero address");
+    require(!_exists(tokenId), "ERC721: token already minted");
 
-      _beforeTokenTransfer(address(0), to, tokenId, 1);
+    _beforeTokenTransfer(address(0), to, tokenId, 1);
 
-      // Check that tokenId was not minted by `_beforeTokenTransfer` hook
-      require(!_exists(tokenId), "ERC721: token already minted");
+    // Check that tokenId was not minted by `_beforeTokenTransfer` hook
+    require(!_exists(tokenId), "ERC721: token already minted");
 
-      unchecked {
-        // Will not overflow unless all 2**256 token ids are minted to the same owner.
-        // Given that tokens are minted one by one, it is impossible in practice that
-        // this ever happens. Might change if we allow batch minting.
-        // The ERC fails to describe this case.
-        _balances[to] += 1;
-      }
+    // unchecked {
+    //   // Will not overflow unless all 2**256 token ids are minted to the same owner.
+    //   // Given that tokens are minted one by one, it is impossible in practice that
+    //   // this ever happens. Might change if we allow batch minting.
+    //   // The ERC fails to describe this case.
+    //   _balances[to] += 1;
+    // }
 
-      _owners[tokenId] = to;
+    _owners[tokenId] = to;
 
-      emit Transfer(address(0), to, tokenId);
+    emit Transfer(address(0), to, tokenId);
 
-      _afterTokenTransfer(address(0), to, tokenId, 1);
+    _afterTokenTransfer(address(0), to, tokenId, 1);
   }
 
   /**
@@ -591,26 +590,26 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * Emits a {Transfer} event.
     */
   function _burn(uint256 tokenId) internal {
-      address owner = ERC721.ownerOf(tokenId);
+    address owner = ERC721.ownerOf(tokenId);
 
-      _beforeTokenTransfer(owner, address(0), tokenId, 1);
+    _beforeTokenTransfer(owner, address(0), tokenId, 1);
 
-      // Update ownership in case tokenId was transferred by `_beforeTokenTransfer` hook
-      owner = ERC721.ownerOf(tokenId);
+    // Update ownership in case tokenId was transferred by `_beforeTokenTransfer` hook
+    owner = ERC721.ownerOf(tokenId);
 
-      // Clear approvals
-      delete _tokenApprovals[tokenId];
+    // Clear approvals
+    delete _tokenApprovals[tokenId];
 
-      unchecked {
-        // Cannot overflow, as that would require more tokens to be burned/transferred
-        // out than the owner initially received through minting and transferring in.
-        _balances[owner] -= 1;
-      }
-      delete _owners[tokenId];
+    // unchecked {
+    //   // Cannot overflow, as that would require more tokens to be burned/transferred
+    //   // out than the owner initially received through minting and transferring in.
+    //   _balances[owner] -= 1;
+    // }
+    delete _owners[tokenId];
 
-      emit Transfer(owner, address(0), tokenId);
+    emit Transfer(owner, address(0), tokenId);
 
-      _afterTokenTransfer(owner, address(0), tokenId, 1);
+    _afterTokenTransfer(owner, address(0), tokenId, 1);
   }
 
   /**
@@ -625,31 +624,31 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * Emits a {Transfer} event.
     */
   function _transfer(address from, address to, uint256 tokenId) internal {
-      require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
-      require(to != address(0), "ERC721: transfer to the zero address");
+    require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
+    require(to != address(0), "ERC721: transfer to the zero address");
 
-      _beforeTokenTransfer(from, to, tokenId, 1);
+    _beforeTokenTransfer(from, to, tokenId, 1);
 
-      // Check that tokenId was not transferred by `_beforeTokenTransfer` hook
-      require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
+    // Check that tokenId was not transferred by `_beforeTokenTransfer` hook
+    require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
 
-      // Clear approvals from the previous owner
-      delete _tokenApprovals[tokenId];
+    // Clear approvals from the previous owner
+    delete _tokenApprovals[tokenId];
 
-      unchecked {
-        // `_balances[from]` cannot overflow for the same reason as described in `_burn`:
-        // `from`'s balance is the number of token held, which is at least one before the current
-        // transfer.
-        // `_balances[to]` could overflow in the conditions described in `_mint`. That would require
-        // all 2**256 token ids to be minted, which in practice is impossible.
-        _balances[from] -= 1;
-        _balances[to] += 1;
-      }
-      _owners[tokenId] = to;
+    // unchecked {
+    //   // `_balances[from]` cannot overflow for the same reason as described in `_burn`:
+    //   // `from`'s balance is the number of token held, which is at least one before the current
+    //   // transfer.
+    //   // `_balances[to]` could overflow in the conditions described in `_mint`. That would require
+    //   // all 2**256 token ids to be minted, which in practice is impossible.
+    //   _balances[from] -= 1;
+    //   _balances[to] += 1;
+    // }
+    _owners[tokenId] = to;
 
-      emit Transfer(from, to, tokenId);
+    emit Transfer(from, to, tokenId);
 
-      _afterTokenTransfer(from, to, tokenId, 1);
+    _afterTokenTransfer(from, to, tokenId, 1);
   }
 
   /**
@@ -658,8 +657,8 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * Emits an {Approval} event.
     */
   function _approve(address to, uint256 tokenId) internal {
-      _tokenApprovals[tokenId] = to;
-      emit Approval(ERC721.ownerOf(tokenId), to, tokenId);
+    _tokenApprovals[tokenId] = to;
+    emit Approval(ERC721.ownerOf(tokenId), to, tokenId);
   }
 
   /**
@@ -668,16 +667,16 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * Emits an {ApprovalForAll} event.
     */
   function _setApprovalForAll(address owner, address operator, bool approved) internal {
-      require(owner != operator, "ERC721: approve to caller");
-      _operatorApprovals[owner][operator] = approved;
-      emit ApprovalForAll(owner, operator, approved);
+    require(owner != operator, "ERC721: approve to caller");
+    _operatorApprovals[owner][operator] = approved;
+    emit ApprovalForAll(owner, operator, approved);
   }
 
   /**
     * @dev Reverts if the `tokenId` has not been minted yet.
     */
   function _requireMinted(uint256 tokenId) internal view {
-      require(_exists(tokenId), "ERC721: invalid token ID");
+    require(_exists(tokenId), "ERC721: invalid token ID");
   }
 
   /**
@@ -691,27 +690,27 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * @return bool whether the call correctly returned the expected magic value
     */
   function _checkOnERC721Received(
-      address from,
-      address to,
-      uint256 tokenId,
-      bytes memory data
+    address from,
+    address to,
+    uint256 tokenId,
+    bytes memory data
   ) private returns (bool) {
-      // if (to.isContract()) {
-          // try IERC721Receiver(to).onERC721Received(msg.sender, from, tokenId, data) returns (bytes4 retval) {
-          //     return retval == IERC721Receiver.onERC721Received.selector;
-          // } catch (bytes memory reason) {
-          //     if (reason.length == 0) {
-          //         revert("ERC721: transfer to non ERC721Receiver implementer");
-          //     } else {
-          //         /// @solidity memory-safe-assembly
-          //         assembly {
-          //             revert(add(32, reason), mload(reason))
-          //         }
-          //     }
-          // }
-      // } else {
-      //     return true;
+    // if (to.isContract()) {
+      // try IERC721Receiver(to).onERC721Received(msg.sender, from, tokenId, data) returns (bytes4 retval) {
+      //     return retval == IERC721Receiver.onERC721Received.selector;
+      // } catch (bytes memory reason) {
+      //     if (reason.length == 0) {
+      //         revert("ERC721: transfer to non ERC721Receiver implementer");
+      //     } else {
+      //         /// @solidity memory-safe-assembly
+      //         assembly {
+      //             revert(add(32, reason), mload(reason))
+      //         }
+      //     }
       // }
+    // } else {
+    //     return true;
+    // }
   }
 
   /**
@@ -729,19 +728,19 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata {
     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
     */
   function _beforeTokenTransfer(
-      address from,
-      address to,
-      uint256 /* firstTokenId */,
-      uint256 batchSize
+    address from,
+    address to,
+    uint256 /* firstTokenId */,
+    uint256 batchSize
   ) internal {
-      if (batchSize > 1) {
-          if (from != address(0)) {
-              _balances[from] -= batchSize;
-          }
-          if (to != address(0)) {
-              _balances[to] += batchSize;
-          }
+    if (batchSize > 1) {
+      if (from != address(0)) {
+        _balances[from] -= batchSize;
       }
+      if (to != address(0)) {
+        _balances[to] += batchSize;
+      }
+    }
   }
 
   /**
