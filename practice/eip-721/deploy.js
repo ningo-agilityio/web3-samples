@@ -4,8 +4,8 @@ config();
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const Web3 = require('web3');
-const { interface, bytecode } = require('./compile');
-console.log('bytecode:', bytecode)
+const { abi, bytecode } = require('./compile');
+
 const provider = new HDWalletProvider(
   process.env.OWN_PHRASE,
   // remember to change this to your own phrase!
@@ -19,10 +19,10 @@ const deploy = async () => {
   const currentBalance = await web3.eth.getBalance(accounts[1]);
   console.log('Address: ', accounts[1])
   console.log('Balance: ', currentBalance)
-  const result = await new web3.eth.Contract(JSON.parse(interface), { _initialAmount: 0.1 })
-    .deploy({ data: bytecode,  arguments: [1] })
+  const result = await new web3.eth.Contract(abi, { _initialAmount: 0.1 })
+    .deploy({ data: bytecode })
     .send({ 
-      gas: 1500000, 
+      gas: 5000000, 
       from: accounts[1],
     });
 
