@@ -8,6 +8,6 @@ My notes: [link](https://docs.google.com/document/d/1UEghomOIx91aH8PLjAr9P2cpy6X
 - [x] [Creating contract](https://docs.soliditylang.org/en/latest/contracts.html#creating-contracts)
 ### Practice
 - [x] Create token for EIP 20
-- [ ] Create token for EIP 721 - (IN PROGRESS)
-- [ ] Create token for EIP 1559
+- [x] Create token for EIP 721 
+- [ ] Create token for EIP 1559 (IN PROGRESS)
 - [ ] Implement a smart contract that only allows a white-label list of addresses can withdraw ETH / Token.
